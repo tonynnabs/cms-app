@@ -12,6 +12,23 @@
     <div class="card">
         <div class="card-header">Categories
         </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <th>NAME</th>
+                </thead>
+
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>
+                                {{ $category->name }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
 @endsection
