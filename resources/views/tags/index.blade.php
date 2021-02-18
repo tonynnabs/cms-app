@@ -4,16 +4,16 @@
 @section('content')
 
     <div class="d-flex justify-content-end m-2">
-        <a href="{{ route('categories.create') }}" class="btn btn-success">
-            Add Category
+        <a href="{{ route('tags.create') }}" class="btn btn-success">
+            Add tag
         </a>
     </div>
 
     <div class="card">
-        <div class="card-header">Categories
+        <div class="card-header">Tags
         </div>
         <div class="card-body">
-            @if ($categories->count() > 0)
+            @if ($tags->count() > 0)
                 <table class="table">
                     <thead>
                         <th>NAME</th>
@@ -22,18 +22,18 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($tags as $tag)
                             <tr>
                                 <td>
-                                    {{ $category->name }}
+                                    {{ $tag->name }}
                                 </td>
                                 <td>
-                                    {{ $category->posts->count() }}
+                                    0
                                 </td>
                                 <td>
-                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a>
+                                    <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-info">Edit</a>
                                     <button class="btn btn-danger "
-                                        onclick="handleDelete( {{ $category->id }})">Delete</button>
+                                        onclick="handleDelete( {{ $tag->id }})">Delete</button>
                                 </td>
 
                             </tr>
@@ -41,11 +41,11 @@
                     </tbody>
                 </table>
             @else
-                <h3 class="text-center">No Categories Yet</h3>
+                <h3 class="text-center">No tags Yet</h3>
             @endif
 
             <!-- Modal -->
-            <form action="" id="deleteCategoryForm" method="POST">
+            <form action="" id="deletetagForm" method="POST">
                 @csrf
 
                 @method('DELETE')
@@ -79,8 +79,8 @@
 @section('scripts')
     <script>
         function handleDelete(id) {
-            var form = document.getElementById('deleteCategoryForm')
-            form.action = '/categories/' + id
+            var form = document.getElementById('deletetagForm')
+            form.action = '/tags/' + id
             $('#deleteModal').modal('show')
         }
 

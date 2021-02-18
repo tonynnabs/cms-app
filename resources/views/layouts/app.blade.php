@@ -19,6 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('css')
 </head>
 
 <body>
@@ -65,7 +67,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                         document.getElementById('logout-form').submit();">
+                                                                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -90,17 +92,33 @@
                             {{ session()->get('success') }}
                         </div>
                     @endif
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <a href="#">Post</a>
+                                    <a href=" {{ route('posts.index') }} ">Post</a>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <a href=" {{ route('tags.index') }} ">Tags</a>
 
                                 </li>
                                 <li class="list-group-item">
                                     <a href=" {{ route('categories.index') }} ">Categories</a>
 
                                 </li>
+                            </ul>
+                            <ul class="list-group mt-5">
+                                <li class="list-group-item">
+                                    <a href=" {{ route('trashed-posts.index') }} " style="color:red;">Trashed Post</a>
+
+                                </li>
+
                             </ul>
                         </div>
                         <div class="col-md-8">
