@@ -59,18 +59,36 @@
 
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="image">Image</label>
-                    <input type="file" id="image" name="image" class="form-control">
-                </div>
 
-                <div class="form-group">
-                    <button type="submit"
-                        class="btn btn-success">{{ isset($post) ? 'Update Post' : 'Create Post' }}</button>
-                </div>
+                @if ($tags->count() > 0)
 
-            </form>
+                    <div class="form-group">
+                        <label for="tags">tags</label>
+                        <select name="tags[]" id="tags" class="form-control tags-selector" multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}" @if (isset($post))  @if ($post->hasTag($tag->id))
+                                    selected @endif
+
+                            @endif
+
+
+                            > {{ $tag->name }} </option>
+                @endforeach
+                </select>
         </div>
+
+        @endif
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" id="image" name="image" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">{{ isset($post) ? 'Update Post' : 'Create Post' }}</button>
+        </div>
+
+        </form>
+    </div>
     </div>
 
 @endsection
@@ -78,10 +96,17 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         flatpickr('#published_at', {
             enableTime: true
-        })
+        });
+
+        $(document).ready(function() {
+            $('.tags-selector').select2();
+        });
 
     </script>
 @endsection
@@ -89,5 +114,5 @@
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
